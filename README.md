@@ -7,4 +7,34 @@
 pip install src/requirements.txt
 ```
 ### Survey
+In order to survey the answer-position bias in a dataset, run the following command in terminal
+```
+python src/position_bias.py [path_to_dataset] [analysis_save_path]
+```
 ### Debias Answer-Position using Unanswerable Questions
+Firstly, we need to train the model
+```
+python src/run_qa.py \
+    --model_name_or_path [MODEL_NAME]\
+    --train_file [path_to_train_file] \
+    --validation_file [path_to_validation_file] \
+    --do_train \
+    --do_eval \
+    --per_device_train_batch_size 8 \
+    --per_device_eval_batch_size 8 \
+    --learning_rate 2e-5 \
+    --num_train_epochs 2 \
+    --max_seq_length 384 \
+    --max_answer_length 128 \
+    --doc_stride 128 \
+    --overwrite_output_dir \
+    --version_2_with_negative \
+    --output_dir  [model_save_path]
+```
+Note: [MODEL_NAME] is from the name on model card from [huggingface hub](https://huggingface.co/models). Models used in the paper are:
+
+
+1.   BERT: bert-base-cased
+2.   RoBERTa: roberta-base
+3.   SpanBERT: SpanBERT/spanbert-base-cased
+
